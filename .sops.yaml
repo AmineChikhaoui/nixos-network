@@ -1,0 +1,11 @@
+keys:
+  - &monitoring age1jvgth43df8k0mxd4x22a8n804mm9zmz3hn45et89mffmypds9sgqmslu56
+  - &linode age1er0m2t7s47twdd085rjfhpymjca4m3vcrcrm2k6j766p7q5fau0q7dycdm
+  - &mac age1zfg2l635tj8zsc5nc7hfpa2h4adxu978rymmn6nqjk8dzvwle92qs9ggae
+creation_rules:
+  - path_regex: secrets.yaml$
+    key_groups:
+      - age:
+        - *monitoring
+        - *linode
+        - *mac
