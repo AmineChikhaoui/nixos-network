@@ -15,11 +15,10 @@ unstablePkgs:
   ];
 
   environment.systemPackages =
-    with pkgs; [ vim file ];
+    with pkgs; [ vim file bind mtr ];
 
   boot.cleanTmpDir = true;
 
   networking.hostName = "watchdog";
-  networking.firewall.allowPing = true;
 
 }
