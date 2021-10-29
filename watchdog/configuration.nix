@@ -19,7 +19,7 @@ unstablePkgs:
 
   boot.cleanTmpDir = true;
 
-  networking.hostName = "monitoring";
+  networking.hostName = "watchdog";
   networking.firewall.allowPing = true;
 
 }

@@ -59,10 +59,10 @@
         };
 
         # Oracle Cloud free tier aarch64 box
-        monitoring = nixpkgs.lib.nixosSystem {
+        watchdog = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           modules = [
-            (import ./monitoring/configuration.nix unstableAarch64Pkgs)
+            (import ./watchdog/configuration.nix unstableAarch64Pkgs)
             sops-nix.nixosModules.sops
             {
               sops.defaultSopsFile = ./secrets.yaml;

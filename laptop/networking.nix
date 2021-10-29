@@ -5,7 +5,7 @@
   networking = {
     networkmanager.enable = true;
 
-    resolvconf.extraOptions = [ "rotate" ];
+    #resolvconf.extraOptions = [ "rotate" ];
 
     search = [
       "logicblox.com"

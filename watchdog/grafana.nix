@@ -4,7 +4,7 @@
     owner = "grafana";
   };
 
-  sops.secrets.monitoring-tailscale-ip = {};
+  sops.secrets.watchdog-tailscale-ip = {};
 
   systemd.services.grafana.serviceConfig = {
     EnvironmentFile = "/run/secrets/tailnet-hostname";
@@ -19,7 +19,7 @@
   systemd.services.httpd.serviceConfig = {
     EnvironmentFile = [
       "/run/secrets/tailnet-hostname"
-      "/run/secrets/monitoring-tailscale-ip"
+      "/run/secrets/watchdog-tailscale-ip"
     ];
   };
 
@@ -69,7 +69,7 @@
     };
     scrapeConfigs = [
       {
-        job_name = "monitoring";
+        job_name = "watchdog";
         static_configs = [
           {
             targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
