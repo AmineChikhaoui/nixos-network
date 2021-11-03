@@ -167,11 +167,11 @@ let
         "ensure zig is a recognized filetype
         autocmd BufNewFile,BufRead *.zig set filetype=zig
 
-        " let g:LanguageClient_serverCommands = {
-        "  \ 'zig': ['/run/current-system/sw/bin/zls'],
-        "  \ 'python': ['pyls'],
-        "  \ 'dhall': ['dhall-lsp-server'],
-        "  \ }
+        let g:LanguageClient_serverCommands = {
+         \ 'zig': ['/run/current-system/sw/bin/zls'],
+         \ 'python': ['pyls'],
+         \ 'dhall': ['dhall-lsp-server'],
+         \ }
 
         nnoremap <F5> :call LanguageClient_contextMenu()<CR>
         nnoremap <silent> gh :call LanguageClient_textDocument_hover()<CR>

@@ -103,7 +103,7 @@ unstablePkgs:
       (python3.withPackages(ps: [
         ps.python-language-server
         ps.pyls-isort ps.pyls-black
-      ]))
+      ])) rustup go
 
       # deployment tools
       unstablePkgs.nixopsUnstable terraform

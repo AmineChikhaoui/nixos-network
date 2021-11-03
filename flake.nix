@@ -71,6 +71,21 @@
             }
           ];
         };
+
+        # home raspberry pi 4
+        atl-rpi4 = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          modules = [
+            (import ./atl-rpi4/configuration.nix unstableAarch64Pkgs)
+            sops-nix.nixosModules.sops
+            {
+              sops.defaultSopsFile = ./secrets.yaml;
+              sops.age.keyFile = "/var/lib/sops-nix/key.txt";
+              sops.age.generateKey = true;
+            }
+          ];
+        };
+
       };
     };
 }

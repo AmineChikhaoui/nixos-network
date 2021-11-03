@@ -15,9 +15,17 @@ unstablePkgs:
   ];
 
   environment.systemPackages =
-    with pkgs; [ vim file bind mtr ];
+    with pkgs; [ vim file bind mtr htop ];
 
   boot.cleanTmpDir = true;
+
+  nix = {
+    package = unstablePkgs.nixUnstable;
+
+    extraOptions = ''
+      experimental-features = flakes nix-command
+    '';
+  };
 
   networking.hostName = "watchdog";
 

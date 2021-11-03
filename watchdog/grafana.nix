@@ -69,17 +69,17 @@
     };
     scrapeConfigs = [
       {
-        job_name = "watchdog";
+        job_name = "node";
         static_configs = [
           {
-            targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
+            targets = [
+              "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
+            ];
+            labels.role = "watchdog";
           }
-        ];
-      }
-      {
-        job_name = "linode";
-        static_configs = [
-          { targets = [ "linode:9002" ]; }
+          { targets = [ "linode:9002" ];
+            labels.role = "linode";
+          }
         ];
       }
     ];
