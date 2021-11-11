@@ -180,6 +180,12 @@ let
         nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
         nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
         nnoremap <silent> gff :call LanguageClient_textDocument_formatting()<CR>
+
+        " add Infor tooling file types which are pretty much yaml
+        autocmd BufNewFile,BufRead *.farobuild set syntax=yaml
+        autocmd BufNewFile,BufRead *.deckspec set syntax=yaml
+        autocmd BufNewFile,BufRead *.sls set syntax=yaml
+        autocmd BufNewFile,BufRead *.ced set syntax=yaml
       '';
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [ LanguageClient-neovim ];
@@ -219,6 +225,7 @@ let
           "vim-ledger"
           "sitruuna"
           "zig-vim"
+          "vim-toml"
           #"YouCompleteMe"
         ];
       }];

@@ -104,6 +104,7 @@ unstablePkgs:
         ps.python-language-server
         ps.pyls-isort ps.pyls-black
       ])) rustup go
+      shfmt
 
       # deployment tools
       unstablePkgs.nixopsUnstable terraform
