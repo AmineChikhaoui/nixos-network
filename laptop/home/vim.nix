@@ -22,6 +22,12 @@ let
         rev = "ec87af6b69387abb3c4449ce8c4040d2d00d745e";
         sha256 = "1by56rflr0bmnjvcvaa9r228zyrmxwfkzkclxvdfscm7l7n7jnmh";
       };
+      patches = [
+        (pkgs.fetchurl {
+          url = "https://patch-diff.githubusercontent.com/raw/jremmen/vim-ripgrep/pull/64.patch";
+          sha256 = "sha256-YAmY2DVcUbWPeLI0O3dxevFD1+0VFezsax1SgSBhZMA=";
+        })
+      ];
     };
     vim-logicblox = pkgs.vimUtils.buildVimPlugin {
       name = "vim-logicblox";
