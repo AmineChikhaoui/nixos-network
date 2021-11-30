@@ -86,6 +86,9 @@ unstablePkgs:
       # media
       pavucontrol ffmpeg
 
+      # communication
+      slack teams
+
       # photography
       darktable rapid-photo-downloader gphoto2
 
@@ -101,8 +104,8 @@ unstablePkgs:
       openjdk gnumake python gcc gdb rr ghc nodejs lldb
       unstablePkgs.zig unstablePkgs.zls
       (python3.withPackages(ps: [
-        ps.python-language-server
-        ps.pyls-isort ps.pyls-black
+        ps.python-lsp-server
+        ps.pyls-isort ps.python-lsp-black
       ])) rustup go
       shfmt
 

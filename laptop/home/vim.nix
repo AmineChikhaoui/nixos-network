@@ -186,6 +186,7 @@ let
         autocmd BufNewFile,BufRead *.deckspec set syntax=yaml
         autocmd BufNewFile,BufRead *.sls set syntax=yaml
         autocmd BufNewFile,BufRead *.ced set syntax=yaml
+        autocmd BufNewFile,BufRead *.sam set syntax=yaml
       '';
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [ LanguageClient-neovim ];

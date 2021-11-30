@@ -23,7 +23,7 @@
 
   # Fix font sizes in X
   services.xserver.dpi = 160;
-  fonts.fontconfig.dpi = 160;
+  # fonts.fontconfig.dpi = 160;
 
   services.xserver.synaptics.tapButtons = true;
   services.xserver.synaptics.fingersMap = [ 0 0 0 ];

@@ -28,4 +28,6 @@ rec {
         configFile = "/etc/nixos/i3config.conf";
       };
     };
+
+  hardware.video.hidpi.enable = true;
 }

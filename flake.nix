@@ -1,9 +1,9 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
     unstablepkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    hydra.url = "github:NixOS/hydra";
+    # hydra.url = "github:NixOS/hydra";
     home-manager.url = "github:nix-community/home-manager/release-21.05";
 
     # Secrets management
@@ -11,7 +11,7 @@
   };
 
   outputs =
-    flakes@{ self, nixpkgs, unstablepkgs, hydra, home-manager, sops-nix }:
+    flakes@{ self, nixpkgs, unstablepkgs, home-manager, sops-nix }:
 
     let
       unstablePkgs = system:
