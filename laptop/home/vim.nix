@@ -175,7 +175,7 @@ let
 
         let g:LanguageClient_serverCommands = {
          \ 'zig': ['/run/current-system/sw/bin/zls'],
-         \ 'python': ['pyls'],
+         \ 'python': ['/run/current-system/sw/bin/pylsp'],
          \ 'dhall': ['dhall-lsp-server'],
          \ }
 

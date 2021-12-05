@@ -78,7 +78,7 @@ unstablePkgs:
       zsh oh-my-zsh alacritty kitty
 
       # editors
-      emacs jetbrains.idea-community
+      neovim emacs jetbrains.idea-community
 
       # networking
       wget bind telnet mtr networkmanagerapplet tcpdump
@@ -108,6 +108,7 @@ unstablePkgs:
         ps.pyls-isort ps.python-lsp-black
       ])) rustup go
       shfmt
+      yarn2nix
 
       # deployment tools
       unstablePkgs.nixopsUnstable terraform
