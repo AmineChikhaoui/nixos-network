@@ -193,6 +193,9 @@ let
         autocmd BufNewFile,BufRead *.sls set syntax=yaml
         autocmd BufNewFile,BufRead *.ced set syntax=yaml
         autocmd BufNewFile,BufRead *.sam set syntax=yaml
+
+        " CloudFormation template files
+        autocmd BufNewFile,BufRead *.template set syntax=yaml
       '';
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [ LanguageClient-neovim ];
