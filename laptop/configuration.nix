@@ -72,7 +72,7 @@ unstablePkgs:
   environment.systemPackages =
     with pkgs; [
       # browsers
-      firefox chromium brave
+      unstablePkgs.firefox chromium brave
 
       # shells & terminals
       zsh oh-my-zsh alacritty kitty
@@ -114,7 +114,7 @@ unstablePkgs:
       unstablePkgs.nixopsUnstable terraform
 
       awscli ripgrep  patchelf binutils sqliteInteractive lsof hologram htop
-      vlc slack bc jq smartmontools elfutils openssl cscope unetbootin pigz
+      vlc slack bc jq yq smartmontools elfutils openssl cscope unetbootin pigz
       scrot perf-tools trace-cmd pinentry xclip xsel usbutils sysstat fd fzf
       criu i3status-rust direnv poetry google-cloud-sdk-gce nasm ncdu
     ];
