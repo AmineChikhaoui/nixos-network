@@ -91,6 +91,7 @@ unstablePkgs:
 
       # photography
       darktable rapid-photo-downloader gphoto2
+      geeqie
 
       # password managers & security
       _1password unstablePkgs._1password-gui gnupg pass passff-host keybase
