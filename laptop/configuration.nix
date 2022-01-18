@@ -72,7 +72,7 @@ unstablePkgs:
   environment.systemPackages =
     with pkgs; [
       # browsers
-      unstablePkgs.firefox chromium brave
+      unstablePkgs.firefox google-chrome chromium brave
 
       # shells & terminals
       zsh oh-my-zsh alacritty kitty

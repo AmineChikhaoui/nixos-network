@@ -82,15 +82,6 @@ let
         sha256 = "sha256-S7BcKcfyP8BSzbRhh2Jo4T3yl7lEFfxPnHl7zqpSlHo=";
       };
     };
-    black = pkgs.vimUtils.buildVimPlugin {
-      name = "black";
-      src = pkgs.fetchFromGitHub {
-        owner = "psf";
-        repo = "black";
-        rev = "ce14fa8b497bae2b50ec48b3bd7022573a59cdb1";
-        sha256 = "sha256:0lma81q4355f2z4j19c6q5x9zgcjdavi2mki01hpx9zz15lv7mlk";
-      };
-    };
     onedark = pkgs.vimUtils.buildVimPlugin {
       name = "onedark";
       src = pkgs.fetchFromGitHub {
@@ -177,6 +168,7 @@ let
          \ 'zig': ['/run/current-system/sw/bin/zls'],
          \ 'python': ['/run/current-system/sw/bin/pylsp'],
          \ 'dhall': ['dhall-lsp-server'],
+         \ 'terraform': ['terraform-ls'],
          \ }
 
         nnoremap <F5> :call LanguageClient_contextMenu()<CR>
@@ -242,4 +234,4 @@ let
     };
   };
 in
-  { home.packages = [ myVim ]; }
+  { home.packages = [ myVim pkgs.terraform-ls ]; }
