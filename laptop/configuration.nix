@@ -4,6 +4,9 @@ unstablePkgs:
 {
   imports =
     [
+      ../common/users.nix
+      ../common/hardening.nix
+
       (import ../common/tailscale.nix unstablePkgs.tailscale)
 
       ./hardware-configuration.nix
@@ -112,12 +115,13 @@ unstablePkgs:
       yarn2nix
 
       # deployment tools
-      unstablePkgs.nixopsUnstable terraform
+      unstablePkgs.nixopsUnstable terraform unstablePkgs.flyctl
 
       awscli ripgrep  patchelf binutils sqliteInteractive lsof hologram htop
       vlc slack bc jq yq smartmontools elfutils openssl cscope unetbootin pigz
       scrot perf-tools trace-cmd pinentry xclip xsel usbutils sysstat fd fzf
       criu i3status-rust direnv poetry google-cloud-sdk-gce nasm ncdu
+      rofimoji
     ];
 
   services.lorri.enable = true;
@@ -199,18 +203,10 @@ unstablePkgs:
     enableSSHSupport = true;
   };
 
-  users.users.amine = {
-    isNormalUser = true;
-    name = "amine";
-    uid = 1000;
-    extraGroups = [
-      "wheel" "networkmanager" "docker"
-      "libvirtd" "vboxusers"
-    ];
-    createHome = true;
-    home = "/home/amine";
-    shell = "/run/current-system/sw/bin/bash";
-  };
+  my.users.extraGroups = [
+    "networkmanager" "docker" "libvirtd" "vboxusers"
+  ];
+  my.openssh.listenAddress = "100.116.60.1";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
