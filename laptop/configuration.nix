@@ -81,7 +81,7 @@ unstablePkgs:
       zsh oh-my-zsh alacritty kitty
 
       # editors
-      neovim emacs jetbrains.idea-community
+      neovim emacs unstablePkgs.jetbrains.idea-community
 
       # networking
       wget bind telnet mtr networkmanagerapplet tcpdump
@@ -110,7 +110,7 @@ unstablePkgs:
       (python3.withPackages(ps: [
         ps.python-lsp-server
         ps.pyls-isort ps.python-lsp-black
-      ])) rustup go
+      ])) rustup unstablePkgs.go
       shfmt
       yarn2nix
 

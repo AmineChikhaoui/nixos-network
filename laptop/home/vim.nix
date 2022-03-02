@@ -169,6 +169,7 @@ let
          \ 'python': ['/run/current-system/sw/bin/pylsp'],
          \ 'dhall': ['dhall-lsp-server'],
          \ 'terraform': ['terraform-ls'],
+         \ 'go': ['gopls'],
          \ }
 
         nnoremap <F5> :call LanguageClient_contextMenu()<CR>
@@ -234,4 +235,4 @@ let
     };
   };
 in
-  { home.packages = [ myVim pkgs.terraform-ls ]; }
+  { home.packages = [ myVim pkgs.terraform-ls pkgs.gopls ]; }

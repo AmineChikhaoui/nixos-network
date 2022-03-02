@@ -64,6 +64,10 @@
       '';
       compression = "auto,lzma";
       startAt = "13:00:00";
+
+      prune.keep = {
+        within = "30d";
+      };
     };
   };
 }
