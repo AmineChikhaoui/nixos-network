@@ -112,10 +112,12 @@ unstablePkgs:
         ps.pyls-isort ps.python-lsp-black
       ])) rustup unstablePkgs.go
       shfmt
-      yarn2nix
+      yarn yarn2nix unstablePkgs.dhall unstablePkgs.dhall-json
+      unstablePkgs.cue
+      apk-tools proot bubblewrap
 
       # deployment tools
-      unstablePkgs.nixopsUnstable terraform unstablePkgs.flyctl
+      unstablePkgs.nixopsUnstable terraform unstablePkgs.flyctl terraform-docs
 
       awscli ripgrep  patchelf binutils sqliteInteractive lsof hologram htop
       vlc slack bc jq yq smartmontools elfutils openssl cscope unetbootin pigz

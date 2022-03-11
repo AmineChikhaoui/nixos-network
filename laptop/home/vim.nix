@@ -91,6 +91,15 @@ let
         sha256 = "e22db041e6ef328f69692adb0cf4155711ec465aad5fce6320e44d17418d1f99";
       };
     };
+    vim-nickel = pkgs.vimUtils.buildVimPlugin rec {
+      name = "vim-nickel";
+      src = pkgs.fetchFromGitHub {
+        owner = "nickel-lang";
+        repo = name;
+        rev = "90d68675d46e029517a41b0610d8a79dd5a73918";
+        sha256 = "sha256-rwpPNZiCnjQK+26NDlkE7R+L33EpZuMlNhGrRNsDK7I=";
+      };
+    };
   };
 
   myVim = pkgs.vim_configurable.customize {
@@ -102,7 +111,7 @@ let
         set encoding=UTF-8
         set autoread
         set backspace=2
-        set colorcolumn=80
+        set colorcolumn=80,100
         set hidden
         set background=dark
         set laststatus=2
@@ -229,10 +238,15 @@ let
           "sitruuna"
           "zig-vim"
           "vim-toml"
+          "vim-terraform"
+          "vim-nickel"
           #"YouCompleteMe"
         ];
       }];
     };
   };
 in
-  { home.packages = [ myVim pkgs.terraform-ls pkgs.gopls ]; }
+  {
+    home.packages = [
+      myVim pkgs.terraform-ls pkgs.gopls pkgs.delve
+      pkgs.dhall-lsp-server ]; }

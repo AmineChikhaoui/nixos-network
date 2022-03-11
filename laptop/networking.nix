@@ -5,7 +5,7 @@
   networking = {
     networkmanager.enable = true;
 
-    enableIPv6 = false;
+    enableIPv6 = true;
 
     #resolvconf.extraOptions = [ "rotate" ];
 
