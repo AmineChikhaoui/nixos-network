@@ -29,11 +29,7 @@ in
 
       services.openssh = {
         enable = true;
-        listenAddresses = lib.mkIf (!isServerMode) [
-          { addr = cfg.listenAddress;
-            port = 22;
-          }
-        ];
+        openFirewall = false;
         passwordAuthentication = false;
         allowSFTP = false;
         challengeResponseAuthentication = false;

@@ -6,6 +6,7 @@
   networking = {
     enableIPv6 = false;
     useDHCP = false;
+
     usePredictableInterfaceNames = false;
 
     # enable NAT
@@ -18,17 +19,11 @@
     defaultGateway = "50.116.57.1";
     nameservers = [ "8.8.8.8" "1.1.1.1" ];
 
-    interfaces = {
-      eth0.ipv4.addresses = [
-        { address = "50.116.57.221";
-          prefixLength = 24;
-        }
-      ];
-    };
+    interfaces.eth0.useDHCP = true;
 
     firewall = {
-      allowedUDPPorts = [ 51820 ];
-      allowedTCPPorts = [ 80 443 ];
+      #allowedUDPPorts = [ 51820 ];
+      #allowedTCPPorts = [ 80 443 ];
     };
   };
 

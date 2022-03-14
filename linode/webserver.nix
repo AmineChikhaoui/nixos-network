@@ -1,9 +1,21 @@
 { config, lib, ... }:
 {
 
+  sops.secrets = {
+    tailnet-domain = { };
+    tailscale-ips = { };
+  };
+
   security.acme = {
     acceptTerms = true;
     email = "amine.chikhaoui91@gmail.com";
+  };
+
+  systemd.services.httpd.serviceConfig = {
+    EnvironmentFile = [
+      "/run/secrets/tailnet-domain"
+      "/run/secrets/tailscale-ips"
+    ];
   };
 
   services.httpd = {
@@ -15,22 +27,25 @@
     adminAddr = "amine.chikhaoui91@gmail.com";
 
     virtualHosts =
-      let
-        publicIp = (lib.head config.networking.interfaces.eth0.ipv4.addresses).address;
-      in
       {
-        "chikhaoui.org" = {
+        "linode.\${TAILNET_DOMAIN}" = {
           listen = [
-            { ip = "${publicIp}"; port = 443; ssl = true; }
-            { ip = "${publicIp}"; port = 80; }
+            { ip = "\${LINODE_IP}"; port = 443; ssl = true; }
+            { ip = "127.0.0.1"; port = 80; }
           ];
 
-          locations."/.well-known/keybase.txt" = {
-            alias = "/var/www/amine/docs/keybase.txt";
-          };
+          # locations."/.well-known/keybase.txt" = {
+          #   alias = "/var/www/amine/docs/keybase.txt";
+          # };
+          # enableACME = true;
 
-          enableACME = true;
           forceSSL = true;
+
+          sslServerCert =
+            "/var/lib/tailscale/certs/linode.\${TAILNET_DOMAIN}.crt";
+          sslServerKey =
+            "/var/lib/tailscale/certs/linode.\${TAILNET_DOMAIN}.key";
+
 
           # Mostly thelounge/irc config
           # TODO: expose only through tailscale
@@ -59,20 +74,6 @@
 
               # By default Apache times out connections after one minute
               ProxyTimeout 86400
-
-
-              UserDir /var/www/*/docs
-              UserDir disabled root
-              <Directory "/var/www/*/docs">
-                  AllowOverride FileInfo AuthConfig Limit Indexes
-                  Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec
-                  <Limit GET POST OPTIONS>
-                      Require all granted
-                  </Limit>
-                  <LimitExcept GET POST OPTIONS>
-                      Require all denied
-                  </LimitExcept>
-              </Directory>
             '';
         };
       };

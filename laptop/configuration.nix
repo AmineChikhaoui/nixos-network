@@ -6,6 +6,7 @@ unstablePkgs:
     [
       ../common/users.nix
       ../common/hardening.nix
+      ../common/prometheus.nix
 
       (import ../common/tailscale.nix unstablePkgs.tailscale)
 
@@ -208,7 +209,6 @@ unstablePkgs:
   my.users.extraGroups = [
     "networkmanager" "docker" "libvirtd" "vboxusers"
   ];
-  my.openssh.listenAddress = "100.116.60.1";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;

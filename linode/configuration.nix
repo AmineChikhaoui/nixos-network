@@ -10,7 +10,7 @@ unstablePkgs:
       ../common/users.nix
 
       ./hardware-configuration.nix
-      ./prometheus.nix
+      ../common/prometheus.nix
       ./thelounge.nix
 
       # self hosted kubernetes experiments

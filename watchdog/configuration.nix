@@ -10,6 +10,7 @@ unstablePkgs:
 
     ../common/hardening.nix
     ../common/users.nix
+    ../common/prometheus.nix
 
     ./grafana.nix
   ];

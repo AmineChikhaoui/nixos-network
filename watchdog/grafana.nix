@@ -1,13 +1,14 @@
 { config, pkgs, ... }:
 {
-  sops.secrets.tailnet-hostname = {
-    owner = "grafana";
+  sops.secrets = {
+    tailnet-domain = {
+      owner = "grafana";
+    };
+    tailscale-ips = { };
   };
 
-  sops.secrets.watchdog-tailscale-ip = {};
-
   systemd.services.grafana.serviceConfig = {
-    EnvironmentFile = "/run/secrets/tailnet-hostname";
+    EnvironmentFile = "/run/secrets/tailnet-domain";
   };
 
   services.grafana = {
@@ -18,8 +19,8 @@
 
   systemd.services.httpd.serviceConfig = {
     EnvironmentFile = [
-      "/run/secrets/tailnet-hostname"
-      "/run/secrets/watchdog-tailscale-ip"
+      "/run/secrets/tailnet-domain"
+      "/run/secrets/tailscale-ips"
     ];
   };
 
@@ -32,19 +33,19 @@
 
       adminAddr = "amine@chikhaoui.org";
 
-      virtualHosts."\${GF_SERVER_DOMAIN}" = {
+      virtualHosts."watchdog.\${TAILNET_DOMAIN}" = {
         listen = [
           { ip = "127.0.0.1"; port = 80; }
-          { ip = "\${TAILSCALE_IP}"; port = 443; ssl = true; }
+          { ip = "\${WATCHDOG_IP}"; port = 443; ssl = true; }
         ];
 
         # Do I even need SSL with Tailscale tho' ?
         forceSSL = true;
 
         sslServerCert =
-          "/var/lib/tailscale/certs/\${GF_SERVER_DOMAIN}.crt";
+          "/var/lib/tailscale/certs/watchdog.\${TAILNET_DOMAIN}.crt";
         sslServerKey =
-          "/var/lib/tailscale/certs/\${GF_SERVER_DOMAIN}.key";
+          "/var/lib/tailscale/certs/watchdog.\${TAILNET_DOMAIN}.key";
 
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString config.services.grafana.port}/";
@@ -60,13 +61,6 @@
     extraFlags = [
       "--storage.tsdb.retention=${toString (30 * 24)}h"
     ];
-    exporters = {
-      node = {
-        enable = true;
-        enabledCollectors = [ "systemd" ];
-        port = 9002;
-      };
-    };
     scrapeConfigs = [
       {
         job_name = "node";
@@ -79,6 +73,9 @@
           }
           { targets = [ "linode:9002" ];
             labels.role = "linode";
+          }
+          { targets = [ "nixos:9002" ];
+            labels.role = "macbook";
           }
         ];
       }

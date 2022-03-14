@@ -50,11 +50,11 @@
           system = "x86_64-linux";
           modules = [
             (import ./linode/configuration.nix unstablex86Pkgs)
-            # sops-nix.nixosModule {
-            #   sops.defaultSopsFile = ./secrets.yaml;
-            #   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
-            #   sops.age.generateKey = true;
-            # }
+             sops-nix.nixosModule {
+               sops.defaultSopsFile = ./secrets.yaml;
+               sops.age.keyFile = "/var/lib/sops-nix/key.txt";
+               sops.age.generateKey = true;
+             }
           ];
         };
 
