@@ -15,6 +15,11 @@ unstablePkgs:
     ./grafana.nix
   ];
 
+  services.openiscsi = {
+    enable = true;
+    name = "iqn.2015-12.com.oracleiaas:b6ebb177-c78e-419e-a0d0-cea7de74324d";
+  };
+
   environment.systemPackages =
     with pkgs; [ vim file bind mtr htop ];
 

@@ -49,6 +49,9 @@
 
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString config.services.grafana.port}/";
+          extraConfig = ''
+          ProxyPreserveHost on
+          '';
           #proxyWebsockets = true;
         };
 
@@ -76,6 +79,15 @@
           }
           { targets = [ "nixos:9002" ];
             labels.role = "macbook";
+          }
+          { targets = [ "nixos:9256" ];
+            labels.role = "macbook";
+          }
+          { targets = [ "localhost:9256" ];
+            labels.role = "watchdog";
+          }
+          { targets = [ "linode:9256" ];
+            labels.role = "linode";
           }
         ];
       }

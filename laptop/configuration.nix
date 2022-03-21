@@ -27,6 +27,9 @@ unstablePkgs:
       # flakes.hydra.nixosModules.hydra
     ];
 
+
+  #  systemd.services.tailscaled.serviceConfig.ExecStart = [ "" "${unstablePkgs.tailscale}/bin/tailscaled --debug localhost:6060 --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock --port $PORT $FLAGS" ];
+
   # added for OSX-KVM https://nixos.wiki/wiki/OSX-KVM
   boot.extraModprobeConfig = ''
     options kvm_intel nested=1
@@ -86,6 +89,7 @@ unstablePkgs:
 
       # networking
       wget bind telnet mtr networkmanagerapplet tcpdump
+      wireshark
 
       # media
       pavucontrol ffmpeg
@@ -94,7 +98,7 @@ unstablePkgs:
       slack teams
 
       # photography
-      darktable rapid-photo-downloader gphoto2
+      unstablePkgs.darktable rapid-photo-downloader gphoto2
       geeqie
 
       # password managers & security
