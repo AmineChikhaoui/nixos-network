@@ -239,6 +239,7 @@ let
           "zig-vim"
           "vim-toml"
           "vim-terraform"
+          "vim-terraform-completion"
           "vim-nickel"
           #"YouCompleteMe"
         ];
