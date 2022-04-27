@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
 
   clangFormat = builtins.fetchurl {
@@ -117,6 +117,7 @@ let
         set laststatus=2
         set list
         set t_Co=256
+        set textwidth=80
         set listchars=tab:›\ ,eol:¬,trail:⋅
         set number
         set ruler
@@ -166,10 +167,6 @@ let
         " Required for operations modifying multiple buffers like rename.
         set hidden
 
-        " Map keybinding
-        nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-        nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-
         "ensure zig is a recognized filetype
         autocmd BufNewFile,BufRead *.zig set filetype=zig
 
@@ -179,6 +176,7 @@ let
          \ 'dhall': ['dhall-lsp-server'],
          \ 'terraform': ['terraform-ls'],
          \ 'go': ['gopls'],
+         \ 'jsonnet': ['/home/amine/go/bin/jsonnet-language-server']
          \ }
 
         nnoremap <F5> :call LanguageClient_contextMenu()<CR>
@@ -189,15 +187,36 @@ let
         nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
         nnoremap <silent> gff :call LanguageClient_textDocument_formatting()<CR>
 
-        " add Infor tooling file types which are pretty much yaml
-        autocmd BufNewFile,BufRead *.farobuild set syntax=yaml
-        autocmd BufNewFile,BufRead *.deckspec set syntax=yaml
-        autocmd BufNewFile,BufRead *.sls set syntax=yaml
-        autocmd BufNewFile,BufRead *.ced set syntax=yaml
-        autocmd BufNewFile,BufRead *.sam set syntax=yaml
+        function! FaroEdit()
+          let l:fname = expand("/home/amine/oxford/gtn/**/". expand("<cWORD>") . ".deckspec")
+          if filereadable(l:fname)
+            execute 'edit' l:fname
+          else
+            echo "couldn't find " . expand("<cWORD>") . " in the deckspecs"
+          endif
+        endfunction
 
-        " CloudFormation template files
-        autocmd BufNewFile,BufRead *.template set syntax=yaml
+        function! CFTemplateEdit()
+          let l:fname = expand("/home/amine/oxford/gtn/**/". expand("<cWORD>") . ".template")
+          if filereadable(l:fname)
+            execute 'edit' l:fname
+          else
+            echo "couldn't find " . expand("<cWORD>") . " in the templates"
+          endif
+        endfunction
+
+        nnoremap f :call FaroEdit()<CR>
+        nnoremap t :call CFTemplateEdit()<CR>
+
+        " add Infor tooling file types which are pretty much yaml
+        ${lib.concatMapStringsSep "\n"
+          (
+          ext: "autocmd BufNewFile,BufRead *.${ext} set syntax=yaml"
+          ) [
+          "farobuild" "deckspec" "sls"
+          "ced" "sam" "template"
+          ]
+        }
       '';
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [ LanguageClient-neovim ];
@@ -241,6 +260,7 @@ let
           "vim-terraform"
           "vim-terraform-completion"
           "vim-nickel"
+          "vim-jsonnet"
           #"YouCompleteMe"
         ];
       }];

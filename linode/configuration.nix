@@ -5,6 +5,7 @@ unstablePkgs:
 {
   imports =
     [ (import ../common/tailscale.nix unstablePkgs.tailscale)
+      (import ../common/nix-config.nix unstablePkgs.nixUnstable)
 
       ../common/hardening.nix
       ../common/users.nix

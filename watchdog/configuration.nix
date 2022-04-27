@@ -7,6 +7,7 @@ unstablePkgs:
   imports = [
     ./hardware-configuration.nix
     (import ../common/tailscale.nix unstablePkgs.tailscale)
+    (import ../common/nix-config.nix unstablePkgs.nixUnstable)
 
     ../common/hardening.nix
     ../common/users.nix
@@ -24,14 +25,6 @@ unstablePkgs:
     with pkgs; [ vim file bind mtr htop ];
 
   boot.cleanTmpDir = true;
-
-  nix = {
-    package = unstablePkgs.nixUnstable;
-
-    extraOptions = ''
-      experimental-features = flakes nix-command
-    '';
-  };
 
   networking.hostName = "watchdog";
 

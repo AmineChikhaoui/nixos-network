@@ -8,6 +8,8 @@ unstablePkgs:
       ../common/hardening.nix
       ../common/prometheus.nix
 
+      (import ../common/nix-config.nix unstablePkgs.nixUnstable)
+
       (import ../common/tailscale.nix unstablePkgs.tailscale)
 
       ./hardware-configuration.nix
@@ -20,15 +22,13 @@ unstablePkgs:
       ./mbp.nix
       ./logicblox.nix
 
-      (import ./nix-config.nix unstablePkgs.nixUnstable)
+      ./nix-config.nix
 
       ./networking.nix
       ./backup.nix
       # flakes.hydra.nixosModules.hydra
     ];
 
-
-  #  systemd.services.tailscaled.serviceConfig.ExecStart = [ "" "${unstablePkgs.tailscale}/bin/tailscaled --debug localhost:6060 --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock --port $PORT $FLAGS" ];
 
   # added for OSX-KVM https://nixos.wiki/wiki/OSX-KVM
   boot.extraModprobeConfig = ''
@@ -82,7 +82,7 @@ unstablePkgs:
       unstablePkgs.firefox google-chrome chromium brave
 
       # shells & terminals
-      zsh oh-my-zsh alacritty kitty
+      zsh oh-my-zsh alacritty kitty unstablePkgs.fish
 
       # editors
       neovim emacs unstablePkgs.jetbrains.idea-community
@@ -115,23 +115,27 @@ unstablePkgs:
       (python3.withPackages(ps: [
         ps.python-lsp-server
         ps.pyls-isort ps.python-lsp-black
-      ])) rustup unstablePkgs.go
+      ])) rustup unstablePkgs.go_1_18
       shfmt
       yarn yarn2nix unstablePkgs.dhall unstablePkgs.dhall-json
-      unstablePkgs.cue
+      unstablePkgs.cue unstablePkgs.go-jsonnet
       apk-tools proot bubblewrap
 
       # deployment tools
-      unstablePkgs.nixopsUnstable terraform unstablePkgs.flyctl terraform-docs
+      unstablePkgs.nixopsUnstable unstablePkgs.terraform unstablePkgs.flyctl terraform-docs
 
       awscli ripgrep  patchelf binutils sqliteInteractive lsof hologram htop
-      vlc slack bc jq yq smartmontools elfutils openssl cscope unetbootin pigz
+      vlc slack bc jq yq smartmontools unstablePkgs.elfutils openssl cscope unetbootin pigz
       scrot perf-tools trace-cmd pinentry xclip xsel usbutils sysstat fd fzf
       criu i3status-rust direnv poetry google-cloud-sdk-gce nasm ncdu
       rofimoji
+      unstablePkgs.fq
+      niv
     ];
 
   services.lorri.enable = true;
+
+  users.extraUsers.amine.shell = lib.mkForce "${unstablePkgs.fish}/bin/fish";
 
   programs.bash.promptInit = ''
     # Provide a nice prompt
