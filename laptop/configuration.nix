@@ -110,21 +110,48 @@ unstablePkgs:
       git mercurial
 
       # Languages/Compilers/Debuggers, ...
-      openjdk gnumake python gcc gdb rr ghc nodejs lldb
+
+      # GCC toolchain
+      gnumake gcc gdb rr lldb binutils
+
+      ## Java
+      openjdk
+
+      ## Haskell
+      ghc
+
+      # NodeJS
+      nodejs yarn yarn2nix
+
+      ## Zig
       unstablePkgs.zig unstablePkgs.zls
+
+      ## Python
+      python
       (python3.withPackages(ps: [
         ps.python-lsp-server
         ps.pyls-isort ps.python-lsp-black
-      ])) rustup unstablePkgs.go_1_18
-      shfmt
-      yarn yarn2nix unstablePkgs.dhall unstablePkgs.dhall-json
+      ]))
+
+      ## Rust
+      rustup
+
+      ## Golang
+      unstablePkgs.go_1_18 unstablePkgs.delve
+
+      ## ConfigLangs
+      unstablePkgs.dhall unstablePkgs.dhall-json
       unstablePkgs.cue unstablePkgs.go-jsonnet
-      apk-tools proot bubblewrap
 
       # deployment tools
       unstablePkgs.nixopsUnstable unstablePkgs.terraform unstablePkgs.flyctl terraform-docs
 
-      awscli ripgrep  patchelf binutils sqliteInteractive lsof hologram htop
+      docker-compose
+
+      # uncategorized
+      shfmt
+      apk-tools proot bubblewrap
+      awscli ripgrep  patchelf  sqliteInteractive lsof hologram htop
       vlc slack bc jq yq smartmontools unstablePkgs.elfutils openssl cscope unetbootin pigz
       scrot perf-tools trace-cmd pinentry xclip xsel usbutils sysstat fd fzf
       criu i3status-rust direnv poetry google-cloud-sdk-gce nasm ncdu
@@ -220,7 +247,7 @@ unstablePkgs:
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  services.printing.drivers = with pkgs; [ gutenprint gutenprintBin splix ];
+  services.printing.drivers = with pkgs; [ gutenprint gutenprintBin splix hplip];
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
 
