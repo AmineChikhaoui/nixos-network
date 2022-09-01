@@ -213,7 +213,7 @@ let
           (
           ext: "autocmd BufNewFile,BufRead *.${ext} set syntax=yaml"
           ) [
-          "farobuild" "deckspec" "sls"
+          "farobuild" "deckspec" # "sls"
           "ced" "sam" "template"
           ]
         }
@@ -261,6 +261,7 @@ let
           "vim-terraform-completion"
           "vim-nickel"
           "vim-jsonnet"
+          "salt-vim"
           #"YouCompleteMe"
         ];
       }];

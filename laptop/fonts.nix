@@ -33,7 +33,7 @@ in
         gentium
         ubuntu_font_family
         terminus_font
-        font-awesome-ttf
+        font-awesome
         font-awesome_5
         powerline-fonts
       ]);

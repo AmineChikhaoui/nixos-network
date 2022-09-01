@@ -1,10 +1,10 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
     unstablepkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # hydra.url = "github:NixOS/hydra";
-    home-manager.url = "github:nix-community/home-manager/release-21.05";
+    home-manager.url = "github:nix-community/home-manager/release-22.05";
 
     # Secrets management
     sops-nix.url = "github:Mic92/sops-nix";

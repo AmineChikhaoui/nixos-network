@@ -1,6 +1,7 @@
 tailscaleUnstable:
 
 { pkgs, lib, ... }:
+
 let
 
   goArchs = {
@@ -12,13 +13,13 @@ let
     let
       platform = goArchs."${pkgs.system}";
       checksums = {
-        amd64 = "sha256-uzBfHeL62ZlMUe7+Cy6MTdIYu+az0ppgLuY3GP8vq2o=";
-        arm64 = "sha256-T3O1kNKMUWAoVP7X0QJPTpmOs4sXlTjVqlmpdS/48aU=";
+        amd64 = "sha256-hmA4ennVOYOPAy4MvmIMskHuPwY2/YlCJ103yjj0Vv0=";
+        arm64 = "sha256-A9q75K8+QLIUrmxG7jtoqDfsXjjITSZxoZjt3Fxxa0k=";
       };
     in
     pkgs.stdenv.mkDerivation rec {
       pname = "tailscale";
-      version = "1.23.144";
+      version = "1.30.0";
 
       src = pkgs.fetchurl {
         url = "https://pkgs.tailscale.com/${releaseType}/${pname}_${version}_${platform}.tgz";
@@ -47,6 +48,6 @@ in
 
   services.tailscale = {
     enable = true;
-    package = tailscaleFromBin "unstable";
+    package = tailscaleFromBin "stable";
   };
 }

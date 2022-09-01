@@ -23,6 +23,7 @@
         "serenity"
         ".config/BraveSoftware"
         ".config/Microsoft"
+        ".config/google-chrome"
         ".config/Code"
         ".config/chromium"
         ".rustup"

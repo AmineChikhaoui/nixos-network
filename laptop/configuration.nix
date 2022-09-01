@@ -55,8 +55,10 @@ unstablePkgs:
     {
       enable = true;
       package = pkgs.pulseaudioFull;
-      extraModules = [ pkgs.pulseaudio-modules-bt ];
+      extraModules = [ ];
     };
+
+  services.usbmuxd.enable = true;
 
   # Yubikey setup
   services.udev.packages = [
@@ -66,6 +68,7 @@ unstablePkgs:
   services.pcscd.enable = true;
 
   hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   nixpkgs.config = {
     allowUnfree = true;
@@ -83,23 +86,24 @@ unstablePkgs:
 
       # shells & terminals
       zsh oh-my-zsh alacritty kitty unstablePkgs.fish
+      unstablePkgs.starship
 
       # editors
       neovim emacs unstablePkgs.jetbrains.idea-community
 
       # networking
-      wget bind telnet mtr networkmanagerapplet tcpdump
-      wireshark
+      wget bind inetutils mtr networkmanagerapplet tcpdump
+      wireshark dogdns
 
       # media
-      pavucontrol ffmpeg
+      pavucontrol ffmpeg spotify v4l-utils
 
       # communication
       slack teams
 
       # photography
       unstablePkgs.darktable rapid-photo-downloader gphoto2
-      geeqie
+      geeqie digikam nomacs obs-studio
 
       # password managers & security
       _1password unstablePkgs._1password-gui gnupg pass passff-host keybase
@@ -115,7 +119,7 @@ unstablePkgs:
       gnumake gcc gdb rr lldb binutils
 
       ## Java
-      openjdk
+      #openjdk
 
       ## Haskell
       ghc
@@ -137,23 +141,28 @@ unstablePkgs:
       rustup
 
       ## Golang
-      unstablePkgs.go_1_18 unstablePkgs.delve
+      unstablePkgs.go_1_19 unstablePkgs.gopls unstablePkgs.delve
 
       ## ConfigLangs
       unstablePkgs.dhall unstablePkgs.dhall-json
       unstablePkgs.cue unstablePkgs.go-jsonnet
+      dyff
 
       # deployment tools
       unstablePkgs.nixopsUnstable unstablePkgs.terraform unstablePkgs.flyctl terraform-docs
 
-      docker-compose
+      docker-compose kubernetes-helm
+
+      # Cloud
+      awscli azure-cli
 
       # uncategorized
       shfmt
       apk-tools proot bubblewrap
-      awscli ripgrep  patchelf  sqliteInteractive lsof hologram htop
+      ripgrep  patchelf  sqlite-interactive lsof hologram htop
       vlc slack bc jq yq smartmontools unstablePkgs.elfutils openssl cscope unetbootin pigz
       scrot perf-tools trace-cmd pinentry xclip xsel usbutils sysstat fd fzf
+      unstablePkgs.bat
       criu i3status-rust direnv poetry google-cloud-sdk-gce nasm ncdu
       rofimoji
       unstablePkgs.fq

@@ -23,12 +23,12 @@
     EnvironmentFile = "${config.sops.secrets.s3-binary-cache.path}";
   };
 
-  services.hologram-agent = {
-    enable = true;
-  };
+  # services.hologram-agent = {
+  #   enable = true;
+  # };
 
-  systemd.services.hologram-agent.serviceConfig = {
-    ExecStart = lib.mkForce "${pkgs.hologram}/bin/hologram-agent --debug --conf /run/secrets/logicblox-hologram.json --port ${config.services.hologram-agent.httpPort}";
-  };
+  # systemd.services.hologram-agent.serviceConfig = {
+  #   ExecStart = lib.mkForce "${pkgs.hologram}/bin/hologram-agent --debug --conf /run/secrets/logicblox-hologram.json --port ${config.services.hologram-agent.httpPort}";
+  # };
 
 }
