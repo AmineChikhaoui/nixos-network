@@ -51,12 +51,17 @@ unstablePkgs:
 
   # PulseAudio
   sound.enable = true;
-  hardware.pulseaudio =
-    {
-      enable = true;
-      package = pkgs.pulseaudioFull;
-      extraModules = [ ];
-    };
+  #hardware.pulseaudio =
+  #  {
+  #    enable = true;
+  #    package = pkgs.pulseaudioFull;
+  #    extraModules = [ ];
+  #  };
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    pulse.enable = true;
+  };
 
   services.usbmuxd.enable = true;
 
@@ -67,7 +72,10 @@ unstablePkgs:
   ];
   services.pcscd.enable = true;
 
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    settings = { General = { ControllerMode = "bredr"; } ; };
+  };
   services.blueman.enable = true;
 
   nixpkgs.config = {
@@ -90,6 +98,7 @@ unstablePkgs:
 
       # editors
       neovim emacs unstablePkgs.jetbrains.idea-community
+      unstablePkgs.obsidian
 
       # networking
       wget bind inetutils mtr networkmanagerapplet tcpdump
@@ -97,12 +106,13 @@ unstablePkgs:
 
       # media
       pavucontrol ffmpeg spotify v4l-utils
+      gnome.cheese
 
       # communication
       slack teams
 
       # photography
-      unstablePkgs.darktable rapid-photo-downloader gphoto2
+      unstablePkgs.darktable rapid-photo-downloader unstablePkgs.gphoto2
       geeqie digikam nomacs obs-studio
 
       # password managers & security
@@ -111,7 +121,7 @@ unstablePkgs:
       unstablePkgs.agebox
 
       # VCS
-      git mercurial
+      git mercurial gh
 
       # Languages/Compilers/Debuggers, ...
 
@@ -132,9 +142,10 @@ unstablePkgs:
 
       ## Python
       python
-      (python3.withPackages(ps: [
+      (unstablePkgs.python3.withPackages(ps: [
         ps.python-lsp-server
         ps.pyls-isort ps.python-lsp-black
+        ps.poetry
       ]))
 
       ## Rust
@@ -157,7 +168,7 @@ unstablePkgs:
       awscli azure-cli
 
       # uncategorized
-      shfmt
+      shfmt arandr
       apk-tools proot bubblewrap
       ripgrep  patchelf  sqlite-interactive lsof hologram htop
       vlc slack bc jq yq smartmontools unstablePkgs.elfutils openssl cscope unetbootin pigz
@@ -236,10 +247,10 @@ unstablePkgs:
     DefaultLimitCORE=infinity
   '';
 
-  services.postgresql = {
-    enable = true;
-    package = pkgs.postgresql_13;
-  };
+  #services.postgresql = {
+  #  enable = true;
+  #  package = pkgs.postgresql_13;
+  #};
 
   # CRIU (https://www.criu.org) experiments
   # systemd.services.docker.path = [ pkgs.criu ];

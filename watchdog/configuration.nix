@@ -1,6 +1,6 @@
 unstablePkgs:
 
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   nixpkgs.system = "aarch64-linux";
 
@@ -15,6 +15,8 @@ unstablePkgs:
 
     ./grafana.nix
   ];
+
+  services.openssh.enable = lib.mkForce false;
 
   services.openiscsi = {
     enable = true;

@@ -1,7 +1,10 @@
 { pkgs, lib, ... }:
 {
   hardware.sane.enable = true;
-  hardware.facetimehd.enable = true;
+  hardware.facetimehd = {
+    enable = true;
+    withCalibration = true;
+  };
   hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
 
   boot.extraModprobeConfig = ''

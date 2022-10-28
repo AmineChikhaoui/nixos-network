@@ -187,6 +187,19 @@ let
         nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
         nnoremap <silent> gff :call LanguageClient_textDocument_formatting()<CR>
 
+        " Use `[g` and `]g` to navigate diagnostics
+        " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+        nmap <silent> [g <Plug>(coc-diagnostic-prev)
+        nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+        " GoTo code navigation.
+        nmap <silent> ggd <Plug>(coc-definition)
+        nmap <silent> ggy <Plug>(coc-type-definition)
+        nmap <silent> ggi <Plug>(coc-implementation)
+        nmap <silent> ggr <Plug>(coc-references)
+
+        command! -nargs=0 CF :call CocActionAsync('format')
+
         function! FaroEdit()
           let l:fname = expand("/home/amine/oxford/gtn/**/". expand("<cWORD>") . ".deckspec")
           if filereadable(l:fname)
