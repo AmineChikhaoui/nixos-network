@@ -1,17 +1,19 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     unstablepkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # hydra.url = "github:NixOS/hydra";
-    home-manager.url = "github:nix-community/home-manager/release-22.05";
+    home-manager.url = "github:nix-community/home-manager/release-22.11";
+    nix-ld.url = "github:Mic92/nix-ld";
+    nix-ld.inputs.nixpkgs.follows = "nixpkgs";
 
     # Secrets management
     sops-nix.url = "github:Mic92/sops-nix";
   };
 
   outputs =
-    flakes@{ self, nixpkgs, unstablepkgs, home-manager, sops-nix }:
+    flakes@{ self, nixpkgs, unstablepkgs, nix-ld, home-manager, sops-nix }:
 
     let
       unstablePkgs = system:
@@ -24,7 +26,7 @@
       unstableAarch64Pkgs = unstablePkgs "aarch64-linux";
     in {
       nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
+        macbook= nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             (import ./laptop/configuration.nix unstablex86Pkgs)
@@ -43,6 +45,7 @@
               sops.defaultSopsFile = ./secrets.yaml;
               sops.age.keyFile = "/home/amine/.config/sops/age/keys.txt";
             }
+            nix-ld.nixosModules.nix-ld
           ];
         };
 
@@ -59,10 +62,16 @@
         };
 
         # Oracle Cloud free tier aarch64 box
-        watchdog = nixpkgs.lib.nixosSystem {
+        dev = unstablepkgs.lib.nixosSystem {
           system = "aarch64-linux";
           modules = [
-            (import ./watchdog/configuration.nix unstableAarch64Pkgs)
+            (import ./dev/configuration.nix unstableAarch64Pkgs)
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.amine = import ./laptop/home.nix;
+            }
             sops-nix.nixosModules.sops
             {
               sops.defaultSopsFile = ./secrets.yaml;

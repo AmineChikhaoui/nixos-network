@@ -110,6 +110,7 @@ unstablePkgs:
 
       # communication
       slack teams
+      emote # emoji picker
 
       # photography
       unstablePkgs.darktable rapid-photo-downloader unstablePkgs.gphoto2
@@ -142,7 +143,7 @@ unstablePkgs:
 
       ## Python
       python
-      (unstablePkgs.python3.withPackages(ps: [
+      (python3.withPackages(ps: [
         ps.python-lsp-server
         ps.pyls-isort ps.python-lsp-black
         ps.poetry
@@ -234,7 +235,11 @@ unstablePkgs:
     libvirtd.enable = true;
     docker = {
       enable = true;
-      extraOptions = "--experimental --insecure-registry docker.chikhaoui.org:5000";
+      extraOptions = "--experimental";
+      daemon.settings = {
+        ipv6 = true;
+        "fixed-cidr-v6" = "fd00::/80";
+      };
     };
     # virtualbox.host.enable = true;
   };

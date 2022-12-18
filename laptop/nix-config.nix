@@ -9,9 +9,9 @@
     '';
     buildMachines = [
       # aarch64 Oracle Cloud box
-      { hostName = "watchdog"; # requires tailscale managing resolv.conf
+      { hostName = "dev"; # requires tailscale managing resolv.conf
         maxJobs = 4;
-        sshKey = "/home/amine/.ssh/id_ed25519";
+        sshKey = "/home/amine/.ssh/oracle";
         sshUser = "root";
         system = "aarch64-linux";
       }

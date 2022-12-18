@@ -7,7 +7,7 @@
       path = "/etc/nix/logicblox.conf";
     };
 
-    "logicblox-hologram.json" = {};
+#    "logicblox-hologram.json" = {};
 
     s3-binary-cache = {};
   };

@@ -151,6 +151,10 @@ let
         map <C-K> :pyf ${clangFormat}<cr>
 
         map <C-F> :FZF<enter>
+        map <C-n> :NERDTreeFocus<enter>
+        map <C-x> :NERDTreeFind<enter>
+        map <C-T> :TerraformFmt<enter>
+        map <C-r> :NERDTreeVCS<enter>
 
         if &diff
           colorscheme molokai
@@ -280,8 +284,11 @@ let
       }];
     };
   };
+  delveAll = pkgs.delve.overrideAttrs (old: {
+    meta.platforms = [ "x86_64-linux" "aarch64-linux" ];
+  });
 in
   {
     home.packages = [
-      myVim pkgs.terraform-ls pkgs.gopls pkgs.delve
-      pkgs.dhall-lsp-server ]; }
+      myVim pkgs.terraform-ls pkgs.gopls delveAll
+      pkgs.dhall-lsp-server pkgs.nodejs ]; }

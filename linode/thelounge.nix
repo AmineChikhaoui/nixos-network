@@ -2,7 +2,7 @@
 {
   services.thelounge = {
     enable = true;
-    private = true;
+    public = false;
     extraConfig = {
       reverseProxy = true;
     };
