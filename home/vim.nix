@@ -29,14 +29,14 @@ let
         })
       ];
     };
-    vim-logicblox = pkgs.vimUtils.buildVimPlugin {
-      name = "vim-logicblox";
-      src = builtins.fetchGit {
-        url = /home/amine/src/vim-logicblox;
-        ref = "master";
-        rev = "003586ca6773e54ced8d477307c409d30ad18be8";
-      };
-    };
+    # vim-logicblox = pkgs.vimUtils.buildVimPlugin {
+    #   name = "vim-logicblox";
+    #   src = builtins.fetchGit {
+    #     url = /home/amine/src/vim-logicblox;
+    #     ref = "master";
+    #     rev = "003586ca6773e54ced8d477307c409d30ad18be8";
+    #   };
+    # };
     vim-autopep8 = pkgs.vimUtils.buildVimPlugin {
       name = "vim-autopep8";
       src = pkgs.fetchFromGitHub {
@@ -254,7 +254,7 @@ let
           "syntastic"
           "vim-codefmt"
           "vim-ripgrep"
-          "vim-logicblox"
+          #"vim-logicblox"
           #"vim-snippets"
           "vim-autopep8"
           "molokai" # color scheme

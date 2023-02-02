@@ -6,8 +6,9 @@
   home.stateVersion = "22.05";
 
   imports = [
-    ./home/git.nix
-    ./home/vim.nix
+    ./git.nix
+    ./vim.nix
+    ./programs.nix
     # ./home/vscode.nix
   ];
 }

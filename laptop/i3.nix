@@ -4,28 +4,29 @@ rec {
   environment.systemPackages =
     with pkgs; [
       i3status
+      i3status-rust
       i3lock
       dmenu
       sakura
       rofi # dmenu alternative
       compton # X compositor
+      alacritty
     ];
-
-  programs.light.enable = true;
-  programs.kbdlight.enable = true;
-
-  services.logind.extraConfig = ''
-    HandlePowerKey=suspend
-  '';
 
   services.xserver =
     { enable = true;
-      synaptics.enable = true;
+      dpi = 220;
       layout = "us";
-      displayManager.sddm.enable = true;
+      displayManager = {
+        defaultSession = "none+i3";
+        lightdm.enable = true;
+#        sessionCommands = ''
+#          ${pkgs.xorg.xset}/bin/xset r rate 200 40
+#        '';
+      };
       windowManager.i3 = {
         enable = true;
-        configFile = "/etc/nixos/i3config.conf";
+        configFile = "/home/amine/nixos-network/laptop/i3config.conf";
       };
     };
 
