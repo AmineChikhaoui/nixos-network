@@ -82,7 +82,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.amine = import ./laptop/home.nix;
+              home-manager.users.amine = import ./home/home.nix;
             }
              sops-nix.nixosModule {
                sops.defaultSopsFile = ./secrets.yaml;
