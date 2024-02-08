@@ -225,7 +225,6 @@ let
         nnoremap f :call FaroEdit()<CR>
         nnoremap t :call CFTemplateEdit()<CR>
 
-        " add Infor tooling file types which are pretty much yaml
         ${lib.concatMapStringsSep "\n"
           (
           ext: "autocmd BufNewFile,BufRead *.${ext} set syntax=yaml"
